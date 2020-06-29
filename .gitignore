@@ -1,0 +1,12 @@
+# Files containing sensitive data
+.env
+config.py
+last.txt
+
+# Files currently in early development
+dev_*.*
+
+# Random stuff that can occur
+*unfailer*.*
+*fixer*.*
+*.log
