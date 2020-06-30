@@ -1,5 +1,5 @@
-# AstraeusBot
-This bot is being used on the Astraeus Community Discord.
+# MRVN
+This bot is being used on the [Astraeus Community Discord](https://discord.gg/4rsVRzA).
 
 ![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
