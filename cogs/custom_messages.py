@@ -1,4 +1,4 @@
-import utils, discord
+import utils, discord, highfive
 from discord.ext import commands
 
 class custom_messages(commands.Cog):
@@ -9,7 +9,7 @@ class custom_messages(commands.Cog):
 
     @commands.command(pass_context = True, aliases=['info', 'about', 'github'])
     async def help(self, ctx):
-        embed=discord.Embed(title="Available commands", description="""``!twitch`` - Astraeus' Twitch channel\n``!socialmedia`` - ...and other social media profiles\n``!designs``- Astraeus' banner & emoji designers\n``!wallpapers`` - Titanfall2 themed wallpapers by Astraeus\n``!catalog`` - Personal astrophotography by Astraeus\n\n[*MRVN is open-source on GitHub*](https://github.com/1LiterZinalco/MRVN)""", color=0x9c5eb3)
+        embed=discord.Embed(title="Available commands", description="""``!twitch`` - Astraeus' Twitch channel\n``!socialmedia`` - ...and other social media profiles\n``!designs``- Astraeus' banner & emoji designers\n``!wallpapers`` - Titanfall2 themed wallpapers by Astraeus\n``!catalog`` - Personal astrophotography by Astraeus\n``!high5`` - *or ``!superhigh5``, for the cool kids*\n\n[*MRVN is open-source on GitHub*](https://github.com/1LiterZinalco/MRVN)""", color=0x9c5eb3)
         embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/727242138840203374/2ffc86022ecb17bf52b38781be358488.png?size=512")
         await ctx.send(embed=embed)
 
@@ -28,6 +28,16 @@ class custom_messages(commands.Cog):
     @commands.command(pass_context = True, aliases=['astrophotography', 'astro'])
     async def catalog(self, ctx):
         await ctx.send("Here's a download link to Astraeus' catalog 🪐\n<https://drive.google.com/drive/folders/10ZTT9gGjRNw0HQHJmD9OQCYn19D3w91n?usp=sharing>")
+
+    @commands.command(pass_context = True, aliases=['shigh5', 'superh5', 'superhigh5', 'shfive', 'superhfive', 'superhighfive', 'shighfive'])
+    async def sh5(self, ctx):
+        highfive.create(ctx.author.avatar_url_as(format="png", size=64))
+        await ctx.send(file=discord.File(open("high5.png", "rb")))
+        highfive.remove()
+
+    @commands.command(pass_context = True, aliases=['high5', 'highfive', 'hfive'])
+    async def h5(self, ctx):
+        await ctx.send(":hand_splayed:")
 
     @commands.command()
     async def socialmedia(self, ctx):
@@ -94,5 +104,3 @@ _Warns a member_
 def setup(client):
     client.add_cog(custom_messages(client))
     utils.log("Initialized cogs.custom_messages")
-
-#============================================================================================================#
