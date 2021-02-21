@@ -1,9 +1,12 @@
-import utils, discord, highfive
+import os, utils, time, random, discord, urllib.request
 from discord.ext import commands
+from PIL import Image
 
-class custom_messages(commands.Cog):
+class features(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self._timeout_kenobi = 0
+        self._timeout_eyeless = 0
 
 #============================================================================================================#
 
@@ -31,13 +34,64 @@ class custom_messages(commands.Cog):
 
     @commands.command(pass_context = True, aliases=['shigh5', 'superh5', 'superhigh5', 'shfive', 'superhfive', 'superhighfive', 'shighfive'])
     async def sh5(self, ctx):
-        highfive.create(ctx.author.avatar_url_as(format="png", size=64))
-        await ctx.send(file=discord.File(open("high5.png", "rb")))
-        highfive.remove()
+        try:
+            m = ctx.message.mentions[0]
+            try:
+                if ctx.message.author == m:
+                    await ctx.message.channel.send("That's... kinda sad... But... Here you go...")
+                os.system("wget {} -O /home/jannis/astraeus/2_h5_user_1.png".format(ctx.author.avatar_url_as(format="png", size=64)))
+                os.system("wget {} -O /home/jannis/astraeus/2_h5_user_2.png".format(m.avatar_url_as(format="png", size=64)))
+                h5_base = Image.open("/home/jannis/astraeus/2_h5_base.png")
+                h5_user_1 = Image.open("/home/jannis/astraeus/2_h5_user_1.png")
+                h5_user_2 = Image.open("/home/jannis/astraeus/2_h5_user_2.png")
+                h5_base.paste(h5_user_1, (174, 68))
+                h5_base.paste(h5_user_2, (349, 61))
+                h5_base.save("/home/jannis/astraeus/2_high5.png")
+                await ctx.send(file=discord.File(open("/home/jannis/astraeus/2_high5.png", "rb")))
+                os.system("rm /home/jannis/astraeus/2_h5_user_1.png")
+                os.system("rm /home/jannis/astraeus/2_h5_user_2.png")
+                os.system("rm /home/jannis/astraeus/2_high5.png")
+            except Exception as e:
+                await ctx.send(":warning: "+str(e))
+        except:
+            try:
+                os.system("wget {} -O /home/jannis/astraeus/h5_user.png".format(ctx.author.avatar_url_as(format="png", size=64)))
+                h5_base = Image.open("/home/jannis/astraeus/h5_base.png")
+                h5_user = Image.open("/home/jannis/astraeus/h5_user.png")
+                h5_base.paste(h5_user, (167, 28))
+                h5_base.save("/home/jannis/astraeus/high5.png")
+                await ctx.send(file=discord.File(open("/home/jannis/astraeus/high5.png", "rb")))
+                os.system("rm /home/jannis/astraeus/h5_user.png")
+                os.system("rm /home/jannis/astraeus/high5.png")
+            except Exception as e:
+                await ctx.send(":warning: "+str(e))
 
     @commands.command(pass_context = True, aliases=['high5', 'highfive', 'hfive'])
     async def h5(self, ctx):
         await ctx.send(":hand_splayed:")
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if "hello there" in message.content.lower():
+            if time.time() > self._timeout_kenobi:
+                self._timeout_kenobi = time.time()+15
+                if message.author.id == 554409891482173460:
+                    gifs = ["https://tenor.com/view/grevious-general-kenobi-star-wars-gif-11406339", "https://tenor.com/view/another-one-for-my-collection-grievous-lightsaber-gif-16775319"]
+                    await message.channel.send(gifs[random.randint(0,1)])
+                else:
+                    await message.channel.send("General Kenobi")
+
+    @commands.command()
+    async def eyeless(self, ctx):
+        i=0
+        if time.time() > self._timeout_eyeless:
+            self._timeout_eyeless = time.time()+60
+            while i<10:
+                g = ctx.message.guild
+                m = g.get_member(262225307463974914)
+                await ctx.send(m.mention)
+                time.sleep(1)
+                i+=1
 
     @commands.command()
     async def socialmedia(self, ctx):
@@ -102,5 +156,5 @@ _Warns a member_
 #============================================================================================================#
 
 def setup(client):
-    client.add_cog(custom_messages(client))
-    utils.log("Initialized cogs.custom_messages")
+    client.add_cog(features(client))
+    utils.log("Initialized cogs.features")

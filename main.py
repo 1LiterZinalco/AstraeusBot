@@ -9,10 +9,9 @@ client = commands.Bot(command_prefix = "!")
 client.remove_command("help")
 
 # Loading cogs:
-client.load_extension("cogs.custom_messages")
+client.load_extension("cogs.features")
 client.load_extension("cogs.on_ready")
-# Development tools
-client.load_extension("cogs.dev_dev")
+client.load_extension("cogs.developer")
 
 # Starting the Bot
 utils.log("STARTUP CLEAR, RUNNING BOT")
