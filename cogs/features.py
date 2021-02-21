@@ -1,4 +1,4 @@
-import os, utils, time, random, discord, urllib.request
+import config, os, utils, time, random, discord, urllib.request
 from discord.ext import commands
 from PIL import Image
 
