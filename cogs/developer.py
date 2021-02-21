@@ -37,4 +37,4 @@ class developer(commands.Cog):
 
 def setup(client):
     client.add_cog(developer(client))
-    utils.log("Initialized cogs.developer")
+    print("Initialized cogs.developer")

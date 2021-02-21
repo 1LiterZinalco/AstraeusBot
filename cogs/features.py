@@ -157,4 +157,4 @@ _Warns a member_
 
 def setup(client):
     client.add_cog(features(client))
-    utils.log("Initialized cogs.features")
+    print("Initialized cogs.features")

@@ -2,7 +2,7 @@ import utils, config, discord
 from discord.ext import commands
 
 # Startup
-utils.log("STARTUP BEGIN...")
+print("STARTUP BEGIN...")
 client = commands.Bot(command_prefix = "!")
 
 # Removing the standard "help" command
@@ -14,5 +14,5 @@ client.load_extension("cogs.on_ready")
 client.load_extension("cogs.developer")
 
 # Starting the Bot
-utils.log("STARTUP CLEAR, RUNNING BOT")
+print("STARTUP CLEAR, RUNNING BOT")
 client.run(config.BOT_TOKEN)

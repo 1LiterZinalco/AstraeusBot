@@ -16,4 +16,4 @@ class on_ready(commands.Cog):
 
 def setup(client):
     client.add_cog(on_ready(client))
-    utils.log("Initialized cogs.on_ready")
+    print("Initialized cogs.on_ready")
