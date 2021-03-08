@@ -1,4 +1,4 @@
-import config, os, utils, time, random, discord, urllib.request
+import config, os, utils, time, random, discord, asyncio
 from discord.ext import commands
 from PIL import Image
 
@@ -39,8 +39,8 @@ class features(commands.Cog):
             try:
                 if ctx.message.author == m:
                     await ctx.message.channel.send("That's... kinda sad... But... Here you go...")
-                os.system("wget {} -O {}".format(ctx.author.avatar_url_as(format="png", size=64)), config.PATH_HIGH5_SOMEONE_EXECUTER)
-                os.system("wget {} -O {}".format(m.avatar_url_as(format="png", size=64)), config.PATH_HIGH5_SOMEONE_TAGGED)
+                os.system("wget {} -O {}".format(ctx.author.avatar_url_as(format="png", size=64), config.PATH_HIGH5_SOMEONE_EXECUTER))
+                os.system("wget {} -O {}".format(m.avatar_url_as(format="png", size=64), config.PATH_HIGH5_SOMEONE_TAGGED))
                 h5_base = Image.open(config.PATH_HIGH5_SOMEONE_BASE)
                 h5_user_1 = Image.open(config.PATH_HIGH5_SOMEONE_EXECUTER)
                 h5_user_2 = Image.open(config.PATH_HIGH5_SOMEONE_TAGGED)
@@ -55,7 +55,7 @@ class features(commands.Cog):
                 await ctx.send(":warning: "+str(e))
         except:
             try:
-                os.system("wget {} -O {}".format(ctx.author.avatar_url_as(format="png", size=64)), config.PATH_HIGH5_BOT_EXECUTER)
+                os.system("wget {} -O {}".format(ctx.author.avatar_url_as(format="png", size=64), config.PATH_HIGH5_BOT_EXECUTER))
                 h5_base = Image.open(config.PATH_HIGH5_BOT_BASE)
                 h5_user = Image.open(config.PATH_HIGH5_BOT_EXECUTER)
                 h5_base.paste(h5_user, (167, 28))
@@ -83,15 +83,13 @@ class features(commands.Cog):
 
     @commands.command()
     async def eyeless(self, ctx):
-        i=0
         if time.time() > self._timeout_eyeless:
             self._timeout_eyeless = time.time()+60
-            while i<10:
-                g = ctx.message.guild
-                m = g.get_member(262225307463974914)
-                await ctx.send(m.mention)
-                time.sleep(1)
-                i+=1
+            for i in range(10):
+                await ctx.send("<@262225307463974914>")
+                await asyncio.sleep(1)
+        else:
+            await ctx.send("Man, give him some time")
 
     @commands.command()
     async def socialmedia(self, ctx):
